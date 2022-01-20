@@ -36,4 +36,22 @@ class MovieListWorker: MovieListWorkerProtocol {
                 failure(error)
             })
     }
+    
+    func fetchMovieList(genreId: Int, page: Int,
+                        sucess: @escaping MovieListSuccess,
+                        failure: @escaping MovieListError) {
+        
+        let enconding = JSONEncoding.default
+        let url = MovieAPI.build(genreId: genreId, page: page)
+        
+        Network().request(
+            data: RequestData(url: url, method: .get, encoding: enconding),
+            decoder: SnakeCaseDecoder(expectation: MovieListResponse.self),
+            success: { response in
+                sucess(response)
+            },
+            failure: {error in
+                failure(error)
+            })
+    }
 }

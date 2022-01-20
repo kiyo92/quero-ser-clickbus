@@ -21,7 +21,7 @@ struct MovieAPI {
 
     // MARK: - Internal Properties
     
-    static let key: String = "API_KEY" // COLOQUE SUA API_KEY DO TMDB AQUI
+    static let key: String = "655922a9a7099dff1c415acf30c1744c" // COLOQUE SUA API_KEY DO TMDB AQUI
     static let version: Int = 3
     static let baseURL: String = "https://api.themoviedb.org/\(MovieAPI.version)"
     static let imageURL: String = "https://image.tmdb.org/t/p"
@@ -38,6 +38,11 @@ struct MovieAPI {
     static func build(section: Section, page: Int) -> String {
         return "\(MovieAPI.baseURL)/movie/\(section.rawValue)"
             + "?api_key=\(MovieAPI.key)&language=\(language)&page=\(page)"
+    }
+    
+    static func build(genreId: Int, page: Int) -> String {
+        return "\(MovieAPI.baseURL)/discover/movie?with_genres=\(genreId)"
+            + "&api_key=\(MovieAPI.key)&language=\(language)&page=\(page)"
     }
     
     static func build(detailsOf id: Int) -> String {
